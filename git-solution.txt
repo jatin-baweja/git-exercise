@@ -1,0 +1,385 @@
+1. Create a repository
+
+Moved to a local folder
+and the following command is run :
+
+git init
+
+
+
+
+2. Make some changes -- add some files, change content of some files
+
+
+Made a file README.txt and new.txt
+Added a few lines of text to them.
+
+
+
+
+3. commit changes
+
+Run the following commands :
+
+git add .
+git commit -m "Initial commit"
+
+
+
+
+4. repeat steps 1-3 for 2 more times. try to remove and ignore some files . Use git diff before each commit.
+
+
+3 new files : file3.txt, file4.txt, file5.txt
+1 modified file : README.txt
+
+git diff
+diff --git a/README.txt b/README.txt
+index 613b745..5841f23 100644
+--- a/README.txt
++++ b/README.txt
+@@ -1,3 +1,4 @@
+ This is just a sample readme
+ And contains just 3 lines
+ Thank you
++A new line is added
+
+
+Added following lines to .gitignore
+file*.txt
+
+git commit -m "Second commit"
+
+git rm new.txt
+
+git commit -m "Deleted new.txt"
+
+
+
+5. create changes and revert those changes using git when those changes are not added to staging area
+
+modified file: README.txt
+
+git diff
+diff --git a/README.txt b/README.txt
+index 5841f23..c7a754d 100644
+--- a/README.txt
++++ b/README.txt
+@@ -2,3 +2,4 @@ This is just a sample readme
+ And contains just 3 lines
+ Thank you
+ A new line is added
++Another line added
+
+
+Revert the files to the previous commit state using:
+
+git reset --hard HEAD
+
+
+
+6. create changes and revert those changes after adding changes to staging area
+
+2 new files : new1.txt, new2.txt
+1 modified file : README.txt
+
+git add .
+
+Revert the files to the previous commit state using:
+
+git reset --hard HEAD
+
+
+
+7. create change and revert those changes after committing those changes .
+
+1 modified file : README.txt
+
+
+git add .
+git commit -m "To be reverted to old commit"
+
+Revert the file to the previous commit state using:
+
+git reset --hard HEAD^
+
+
+
+
+8. Check repository status before adding changes to staging area, after adding changes to staging area and after committing changes .
+
+
+Before adding changes to staging area :
+
+git status
+# On branch master
+# Changes not staged for commit:
+#   (use "git add <file>..." to update what will be committed)
+#   (use "git checkout -- <file>..." to discard changes in working directory)
+#
+#	modified:   README.txt
+#
+no changes added to commit (use "git add" and/or "git commit -a")
+
+
+After adding changes to staging area :
+
+git add .
+git status
+# On branch master
+# Changes to be committed:
+#   (use "git reset HEAD <file>..." to unstage)
+#
+#	modified:   README.txt
+#
+
+
+
+After committing changes :
+
+git commit -m "Just another commit"
+[master bb2394c] Just another commit
+ 1 file changed, 2 insertions(+)
+
+git status
+# On branch master
+nothing to commit, working directory clean
+
+
+
+
+
+9. Display all the commits .
+
+git log
+commit bb2394c122868475d55a1b35a9533d0bb670d0c5
+Author: Jatin Baweja <jatin.baweja@vinsol.com>
+Date:   Fri Jun 21 13:53:52 2013 +0530
+
+    Just another commit
+
+commit b07a4d7f8b0b33ba3b3d7546f697d2d5511b6668
+Author: Jatin Baweja <jatin.baweja@vinsol.com>
+Date:   Fri Jun 21 13:28:06 2013 +0530
+
+    Deleted new.txt
+
+commit b597c63fe5ff92cef6af0d09fe0a7cb7ce58170c
+Author: Jatin Baweja <jatin.baweja@vinsol.com>
+Date:   Fri Jun 21 13:18:26 2013 +0530
+
+    Second commit
+
+commit c581297e7364ec0b9498503b6e92701a86408be9
+Author: Jatin Baweja <jatin.baweja@vinsol.com>
+Date:   Fri Jun 21 12:52:07 2013 +0530
+
+    Initial commit
+
+
+
+
+
+10. Display a specific commit .
+
+
+git log HEAD~3 -1
+commit c581297e7364ec0b9498503b6e92701a86408be9
+Author: Jatin Baweja <jatin.baweja@vinsol.com>
+Date:   Fri Jun 21 12:52:07 2013 +0530
+
+    Initial commit
+
+
+where HEAD~3 will display 4th commit from top, HEAD~2 will display 3rd commit from top, HEAD~1 will display the 2nd commit, and HEAD will display the 1st commit.
+
+
+
+
+
+
+11. create branches called "feature1" and "feature2" from master. 11 . Delete branch "feature2".
+
+
+Create Branches :
+
+git branch feature1
+git branch feature2
+
+git branch -v
+  feature1 bb2394c Just another commit
+  feature2 bb2394c Just another commit
+* master   bb2394c Just another commit
+
+
+
+Delete Branch :
+
+git branch -d feature2
+Deleted branch feature2 (was bb2394c).
+
+git branch -v
+  feature1 bb2394c Just another commit
+* master   bb2394c Just another commit
+
+
+
+
+
+12. Make some commits on "feature1".
+
+
+git checkout feature1
+Switched to branch 'feature1'
+
+Made a new file : newfile.txt
+
+git add .
+git commit -m "First commit on branch feature1"
+
+New file : newfile2.txt
+
+git add .
+git commit -m "Added a new file to feature1 branch"
+
+
+
+
+
+13. Make some commits on branch "master".
+
+
+git checkout master
+Switched to branch 'master'
+
+New file  : random.txt
+Modified file : README.txt
+
+git add .
+git commit -m "README file edited on master branch and new file added"
+
+
+
+
+
+14. merge branch "feature1" in "master" (make some conflicts by changing same file on same line in both the branches) 15.create branch "feature2" from master .
+
+
+git checkout feature1
+Switched to branch 'feature1'
+
+Modified File : README.txt (on the same line as done on master branch but with different text)
+
+git add .
+git commit -m "README file edited on feature1 branch"
+
+git checkout master
+Switched to branch 'master'
+
+git merge feature1
+
+CONFLICT (content): Merge conflict in README.txt
+
+Resolved conflict, keeping the master changes by editing the file README.txt in vi editor.
+
+git commit -a -m "Resolved conflict and merged main and feature1"
+
+git checkout -b feature2
+Switched to a new branch 'feature2'
+
+
+
+
+
+
+15. Make some commits on "feature2".
+
+
+New file : newfile4.txt
+Modified file : README.txt
+
+git add .
+git commit -m "1st commite feature2 branch"
+
+New file : newfile4.txt
+
+git add .
+git commit -m "2nd commit feature2"
+
+
+
+
+
+16. Make some commits on branch "master".
+
+
+Modified file : README.txt
+
+git add .
+git commit -m "Edited README to add a new line"
+
+
+
+
+17. rebase branch "master" in "feature2" (make some conflicts by changing same file on same line in both the branches) .
+
+
+git checkout feature2
+Switched to branch 'feature2'
+
+git rebase master
+
+CONFLICT (content): Merge conflict in README.txt
+
+Resolving conflicts, keeping the feature2 changes by editing the file README.txt in vi editor.
+
+git add .
+git rebase --continue
+
+
+
+
+
+
+18. find the differences between "merge" and "rebase" in above cases.
+
+
+
+In rebasing, the commits from current branch are stored in a temporary area, the commits from the other branch are applied one-by-one, and then commits stored in the temporary area are applied one-by-one and then, conflict resolution takes place.
+
+In merging, the commits of the other branch are applied over the commits of current branch, and then conflict resolution takes place. No temporary space is used.
+
+
+
+
+19. Use git stash
+
+
+Modified file : README.txt
+
+git stash
+Unstaged work is now stashed
+
+git stash list
+
+git stash apply
+Stash is applied back.
+
+git stash drop stash@{0}
+Stash at 0 position is deleted.
+
+
+
+
+20. create a repository on github for your working repository and push changes on remote repository.
+
+
+Created a repository named 'git-files' and pushed changes to it with the following commands :
+
+
+git remote add origin https://github.com/jatin-baweja/git-files.git
+git push -u origin master
+
+
+
+
